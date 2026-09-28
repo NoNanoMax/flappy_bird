@@ -6,8 +6,8 @@
 
 | Файл | Описание |
 |------|----------|
-| `game.py` | Движок Flappy Bird (чистая логика, без рендера) |
-| `agent.py` | PPO агент (actor-critic, ~150 строк) |
+| `game.py` | Движок Flappy Bird |
+| `agent.py` | PPO агент |
 | `train.py` | Цикл обучения |
 | `render.py` | PIL-рендер (кадры для видео) |
 | `record.py` | Запись эпизодов в PNG |

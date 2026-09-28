@@ -32,7 +32,6 @@ def record_episode(agent: PPOAgent, env: FlappyBird, out_dir: str, seed: int, ma
 
         obs, reward, done = env.step(action)
 
-    # save a few extra frames of "death" or end
     for _ in range(10):
         frame = render_frame(
             bird_y=env.bird_y,
@@ -60,7 +59,6 @@ def main():
     base = Path("frames")
     base.mkdir(exist_ok=True)
 
-    # Record with different seeds to show variety
     seeds = [1, 5, 10, 42]
     print(f"Recording {len(seeds)} episodes (max 600 frames each)...")
     scores = []

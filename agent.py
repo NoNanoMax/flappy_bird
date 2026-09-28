@@ -82,11 +82,9 @@ class PPOAgent:
         old_values = torch.stack(self.values).squeeze(-1)
         dones = torch.tensor(self.dones, dtype=torch.float32, device=self.device)
 
-        # GAE
         advantages, returns = self._compute_gae(rewards, old_values, dones)
         advantages = advantages / (advantages.std() + 1e-8)
 
-        # PPO clipped update
         for _ in range(self.update_epochs):
             h = self.shared(states)
             logits = self.actor(h)
@@ -112,7 +110,6 @@ class PPOAgent:
             nn.utils.clip_grad_norm_(self.critic.parameters(), 0.5)
             self.optimizer.step()
 
-        # clear buffer
         self.states.clear()
         self.actions.clear()
         self.log_probs.clear()
@@ -123,7 +120,7 @@ class PPOAgent:
     def _compute_gae(
         self, rewards, values, dones
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Compute GAE advantages and discounted returns."""
+
         n = len(rewards)
         advantages = torch.zeros(n, device=self.device)
         gae = torch.zeros((), device=self.device)
@@ -158,7 +155,7 @@ class PPOAgent:
         self.critic.load_state_dict(ckpt["critic"])
 
     def act_greedy(self, state: list[float]) -> int:
-        """Deterministic action (for rendering)."""
+
         with torch.no_grad():
             s = torch.tensor(state, dtype=torch.float32, device=self.device).unsqueeze(0)
             h = self.shared(s)

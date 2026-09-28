@@ -34,7 +34,6 @@ def main():
         print("No frames/ directory found. Run record.py first.")
         sys.exit(1)
 
-    # Compile each episode
     ep_dirs = sorted(frames_base.iterdir())
     if not ep_dirs:
         print("No episode directories found.")
@@ -45,7 +44,6 @@ def main():
             out = str(output_base / f"{ep_dir.name}.mp4")
             compile_video(str(ep_dir), out)
 
-    # Create a combined video (all episodes in sequence)
     print("\nCreating combined video...")
     concat_list = output_base / "concat.txt"
     with open(concat_list, "w") as f:
