@@ -1,10 +1,3 @@
-"""Record gameplay episodes as PNG frames for video compilation.
-
-Usage: python record.py
-  - Records a trained model playing multiple episodes
-  - Saves frames to frames/ep001/, frames/ep002/, etc.
-"""
-
 import os
 from pathlib import Path
 

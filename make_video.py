@@ -1,10 +1,3 @@
-"""Compile PNG frames into MP4 video using ffmpeg.
-
-Usage: python make_video.py
-  - Compiles each frames/epXXX/ directory into a separate MP4
-  - Optionally creates a combined video with all episodes
-"""
-
 import subprocess
 import sys
 from pathlib import Path

@@ -1,5 +1,3 @@
-"""Training loop — run: python train.py [episodes]"""
-
 import os
 import sys
 import time

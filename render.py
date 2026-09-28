@@ -1,5 +1,3 @@
-"""PIL-based renderer for Flappy Bird — produces clean frames for video."""
-
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -29,7 +27,6 @@ def render_frame(bird_y: float, pipes: list, score: int,
     img = Image.new("RGB", (width, height))
     draw = ImageDraw.Draw(img)
 
-    # ── sky gradient ──
     for y in range(height - ground_h):
         t = y / (height - ground_h)
         r = int(SKY_TOP[0] + (SKY_BOT[0] - SKY_TOP[0]) * t)
@@ -37,7 +34,6 @@ def render_frame(bird_y: float, pipes: list, score: int,
         b = int(SKY_TOP[2] + (SKY_BOT[2] - SKY_TOP[2]) * t)
         draw.line([(0, y), (width, y)], fill=(r, g, b))
 
-    # ── pipes ──
     for px, gc, _ in pipes:
         if px > width + pipe_w or px < -pipe_w:
             continue
@@ -57,7 +53,6 @@ def render_frame(bird_y: float, pipes: list, score: int,
         draw.rectangle([px - 4, gap_bot, px + pipe_w + 4, gap_bot + 20],
                         fill=PIPE_LIP, outline=PIPE_BORDER)
 
-    # ── ground ──
     ground_y = height - ground_h
     draw.rectangle([0, ground_y, width, height], fill=GROUND_DIRT)
     # grass strip
@@ -67,7 +62,6 @@ def render_frame(bird_y: float, pipes: list, score: int,
         draw.polygon([(x, ground_y), (x + 4, ground_y + 6), (x + 8, ground_y)],
                      fill=GROUND_GRASS_DARK)
 
-    # ── bird ──
     bx, by = bird_x, int(bird_y)
     # body
     draw.ellipse([bx - bird_size, by - bird_size, bx + bird_size, by + bird_size],
@@ -81,7 +75,6 @@ def render_frame(bird_y: float, pipes: list, score: int,
     draw.polygon([(bx + bird_size - 2, by - 2), (bx + bird_size + 8, by + 2),
                   (bx + bird_size - 2, by + 6)], fill=BIRD_BEAK)
 
-    # ── score ──
     try:
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
     except (OSError, IOError):

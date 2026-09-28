@@ -1,5 +1,3 @@
-"""PPO agent on PyTorch — actor-critic, converges fast for Flappy Bird."""
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -54,7 +52,6 @@ class PPOAgent:
         self.values: list[torch.Tensor] = []
         self.dones: list[bool] = []
 
-    # ── act ─────────────────────────────────────────────────────────
 
     def act(self, state: list[float]) -> int:
         s = torch.tensor(state, dtype=torch.float32, device=self.device).unsqueeze(0)
@@ -71,13 +68,11 @@ class PPOAgent:
         self.values.append(value)
         return action.item()
 
-    # ── store reward / done ─────────────────────────────────────────
 
     def store(self, reward: float, done: bool):
         self.rewards.append(reward)
         self.dones.append(done)
 
-    # ── update at episode end ───────────────────────────────────────
 
     def update(self):
         states = torch.stack(self.states)
@@ -145,7 +140,6 @@ class PPOAgent:
 
         return advantages, returns
 
-    # ── persistence ─────────────────────────────────────────────────
 
     def save(self, path: str):
         torch.save(

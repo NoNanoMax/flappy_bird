@@ -1,6 +1,6 @@
 # Flappy Bird RL
 
-Нейросеть учится играть в Flappy Bird с нуля — PPO на PyTorch.
+Нейросеть учится играть в Flappy Bird - PPO на PyTorch.
 
 ## Что внутри
 
@@ -13,7 +13,7 @@
 | `record.py` | Запись эпизодов в PNG |
 | `make_video.py` | PNG → MP4 (ffmpeg) |
 
-## Быстрый старт
+## Как запустить
 
 ```bash
 pip install -r requirements.txt
@@ -31,7 +31,7 @@ python make_video.py
 ## Как это работает
 
 ```
-State: [bird_y, velocity, dist_to_pipe, gap_center]  (4 числа)
+State: [bird_y, velocity, dist_to_pipe, gap_center]  (координата птицы, скорость, расстояние до трубы, координата проема)
         ↓
   Neural Network (4→64→64→2, ~8000 параметров)
         ↓

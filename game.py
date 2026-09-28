@@ -1,5 +1,3 @@
-"""Flappy Bird game engine — pure logic, no rendering."""
-
 import random
 
 
@@ -39,7 +37,7 @@ class FlappyBird:
         self.score = 0
         self.done = False
 
-    # ── API ──────────────────────────────────────────────────────────
+
 
     def reset(self) -> list[float]:
         self.bird_y = self.height / 2
@@ -55,27 +53,27 @@ class FlappyBird:
         if self.done:
             return self._obs(), 0.0, True
 
-        # ── bird physics ──
+    
         self.bird_velocity += self.gravity
         if action == 1:
             self.bird_velocity = self.flap
         self.bird_y += self.bird_velocity
 
-        # ── move pipes ──
+    
         for p in self.pipes:
             p[0] -= self.pipe_speed
 
-        # ── spawn ──
+    
         if self.pipes[-1][0] < self.width - self.pipe_spacing:
             self.pipes.append(
                 [self.pipes[-1][0] + self.pipe_spacing,
                  self.rng.randint(150, 350), False]
             )
 
-        # ── cull off-screen ──
+    
         self.pipes = [p for p in self.pipes if p[0] + self.pipe_width > -10]
 
-        # ── collisions ──
+    
         reward = 0.0
         bs = self.bird_size
 
@@ -119,7 +117,6 @@ class FlappyBird:
         
         return self._obs(), reward, self.done
 
-    # ── internals ────────────────────────────────────────────────────
 
     def _obs(self) -> list[float]:
         dist = self.pipes[0][0] - self.bird_x
